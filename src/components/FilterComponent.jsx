@@ -1,6 +1,6 @@
 const FilterComponent = ({ setFilter }) => {
   const setFilterInView = filter => {
-    setFilter(filter);
+    setFilter({type: 'set', filter});
   };
  
   return (

@@ -7,7 +7,9 @@ const ToDoItem = ({ todo, toggleTodo }) => {
         onChange={() => toggleTodo(todo.id)}
         className='mr-2'
       />
-      {todo.text}
+      <span className={`${todo.completed ? 'line-through text-gray-500' : ''}`}>
+        {todo.text}
+      </span>
     </li>
   );
 };

@@ -1,22 +1,32 @@
-import { useState } from 'react';
- 
-const AddToDo = ({ setTodos }) => {
-  const [newTodo, setNewTodo] = useState('');
- 
+import React, { useReducer} from 'react';
+
+const inputReduce = (state, action) => {
+  switch (action.type) {
+    case 'set':
+      return action.value;
+      case 'reset':
+        return '';
+        default:
+      return state;
+  }
+}
+const AddToDo = ({ addTodo }) => { 
+  const [newTodo, dispatch] = useReducer (inputReduce, '');
+
   const handleSubmit = e => {
     e.preventDefault();
     if (!newTodo) return;
-    setTodos(prevTodos => [{ id: Date.now(), text: newTodo, completed: false }, ...prevTodos]);
-    setNewTodo('');
+    addTodo(newTodo);
+    dispatch({type: 'reset' }); 
   };
- 
+
   return (
     <form onSubmit={handleSubmit} className='mb-4 flex'>
       <input
         type='text'
         name='todo'
         value={newTodo}
-        onChange={e => setNewTodo(e.target.value)}
+        onChange={e => dispatch({type: 'set', value: e.target.value})}
         placeholder='Add a new to-do'
         className='flex-1 border rounded px-2 py-1 mr-2'
       />
@@ -26,5 +36,5 @@ const AddToDo = ({ setTodos }) => {
     </form>
   );
 };
- 
+
 export default AddToDo;
