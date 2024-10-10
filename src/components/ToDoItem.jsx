@@ -1,4 +1,13 @@
-const ToDoItem = ({ todo, toggleTodo }) => {
+import { useContext } from 'react';
+import { TodoContext } from './ToDoContext';
+
+const ToDoItem = ({ todo }) => {
+  const { dispatch } = useContext(TodoContext); // Извлекаем dispatch из контекста
+
+  const toggleTodo = id => {
+    dispatch({ type: 'toggle', id });
+  };
+
   return (
     <li className='flex items-center mb-2'>
       <input
@@ -11,5 +20,5 @@ const ToDoItem = ({ todo, toggleTodo }) => {
     </li>
   );
 };
- 
+
 export default ToDoItem;

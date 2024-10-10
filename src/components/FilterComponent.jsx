@@ -1,8 +1,13 @@
-const FilterComponent = ({ setFilter }) => {
+import { useContext } from 'react';
+import { TodoContext } from './ToDoContext'; // Импортируем контекст
+
+const FilterComponent = () => {
+  const { filterDispatch } = useContext(TodoContext); // Извлекаем filterDispatch из контекста
+
   const setFilterInView = filter => {
-    setFilter(filter);
+    filterDispatch({ type: 'set', filter });
   };
- 
+
   return (
     <div className='mb-4 flex space-x-2'>
       <button onClick={() => setFilterInView('all')} className='bg-gray-200 px-3 py-1 rounded'>
@@ -11,14 +16,11 @@ const FilterComponent = ({ setFilter }) => {
       <button onClick={() => setFilterInView('active')} className='bg-gray-200 px-3 py-1 rounded'>
         Active
       </button>
-      <button
-        onClick={() => setFilterInView('completed')}
-        className='bg-gray-200 px-3 py-1 rounded'
-      >
+      <button onClick={() => setFilterInView('completed')} className='bg-gray-200 px-3 py-1 rounded'>
         Completed
       </button>
     </div>
   );
 };
- 
+
 export default FilterComponent;
